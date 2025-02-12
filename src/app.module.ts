@@ -1,27 +1,26 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { UsersModule } from './users/users.module';
 import { User } from './entities/user.entity';
-
-const userForFeature = TypeOrmModule.forFeature([User]);
+import { Repo } from './entities/repo.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
       port: 5432,
-      username: 'postgres',
-      password: 'root',
-      database: 'test',
+      host: process.env.PG_HOST || '0.0.0.0',
+      username: process.env.PG_USER || 'root',
+      password: process.env.PG_PASS || 'notroot',
+      database: process.env.PG_DB || 'github-demo',
       synchronize: true,
-      logging: false,
-      entities: [User],
+      logging: true,
+      entities: [ User, Repo ],
+      autoLoadEntities: true
     }),
-    userForFeature,
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

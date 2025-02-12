@@ -1,16 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, Column, OneToMany, JoinTable, type Relation, PrimaryGeneratedColumn } from 'typeorm';
+import { Repo } from './repo.entity';
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn({ type: 'integer' })
+  UserID: string;
 
-  @Column()
-  firstName: string;
+  // Username
+  @Column({ type: 'varchar' })
+  Login: string;
 
-  @Column()
-  lastName: string;
+  @Column({ type: 'varchar' })
+  Avatar: string;
 
-  @Column()
-  age: number;
+  @OneToMany(type => Repo, repo => repo.User)
+  @JoinTable()
+  Repos: Relation<Repo>[];
 }

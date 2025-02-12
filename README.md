@@ -1,58 +1,29 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Github API Demo
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="https://bun.sh" target="_blank">Bun</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript repository with Bun.
-
-## Installation
+### Installation steps
 
 ```bash
-$ bun install
+$ git clone https://github.com/LPDEV4XR/github-demo.git
+$ docker compose up -d
 ```
 
-## Running the app
+The app will be mounted on [http://localhost:3308/](http://localhost:3308/)
 
-```bash
-# watch mode
-$ bun run start:dev
+### The routes are:
 
-# production mode
-$ bun run start:prod
-```
+## Endpoint 1
+### [http://localhost:3308/users/:user](http://localhost:3308/users/:user)
+- This endpoint will get the information and register on a local database (Postgres), only the records obtained here will be used on the other routes.
 
-## Support
+## Endpoint 2
+### [http://localhost:3308/repos/:user](http://localhost:3308/repos/:user)
+- This endpoint obtains all repos from a given user and returns them.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-- Bun adaption - [@letstri](https://github.com/letstri)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
+## Endpoint 3
+### [http://localhost:3308/search?id=&description=&language=&name=&username=](http://localhost:3308/search?)
+- *id*: The id of the repo (on database).
+- *description*: The description of repo. (Default value is "No description.")
+- *language*: The main language of the repo. (Default value is "No main language.")
+- *name*: The name of the repo.
+- *username*: The name of the repo creator.  
+- This endpoint search through any of the given parameters and will returned the union (all repos that agree with any of the query parameters). To be clear, you only use the query parameters that you need.

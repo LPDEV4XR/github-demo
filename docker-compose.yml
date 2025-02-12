@@ -1,0 +1,45 @@
+services:
+    postgres:
+        container_name: postgres
+        image: postgres:17
+        volumes:
+            - ./pgdata:/var/lib/postgresql/data
+        ports:
+            - 5432:5432
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=notroot
+        restart: always
+
+    node:
+        container_name: nest-github-demo
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on: 
+            - postgres
+        volumes:
+            - ./src:/app/src
+        ports:
+            - 3088:3088
+        environment:
+            - PORT=3088
+            - PG_HOST=postgres
+            - PG_USER=root
+            - PG_PASS=notroot
+            - PG_DB=github-demo
+
+    admin:
+        container_name: pg-admin
+        image: elestio/pgadmin:latest
+        depends_on:
+            - postgres
+        volumes:
+            - ./servers.json:/pgadmin4/servers.json
+        ports:
+            - 8080:8080
+        environment:
+            - PGADMIN_LISTEN_PORT=8080
+            - PGADMIN_DEFAULT_EMAIL=example@example.com
+            - PGADMIN_DEFAULT_PASSWORD=notpassword
+        restart: always
