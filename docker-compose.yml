@@ -9,6 +9,7 @@ services:
         environment:
             - POSTGRES_USER=root
             - POSTGRES_PASSWORD=notroot
+            - POSTGRES_DB=github-demo
         restart: always
 
     node:
